@@ -1,128 +1,76 @@
-:root {
-  /* Apple's system fonts */
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  /* Apple's color palette */
-  --apple-blue: #007AFF;
-  --apple-gray: #8E8E93;
-  --apple-light-gray: #F5F5F7;
-  --apple-dark: #1D1D1F;
-  --apple-white: #FBFBFD;
-  
-  color-scheme: light dark;
-  color: var(--apple-dark);
-  background-color: var(--apple-white);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: var(--apple-white);
-}
-
-.nav-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 22px;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.apple-button {
-  background: var(--apple-blue);
-  color: white;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 980px;
-  font-size: 17px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.apple-button:hover {
-  background: #0071E3;
-  transform: scale(1.02);
-}
-
-.apple-card {
-  background: white;
-  border-radius: 18px;
-  padding: 30px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.apple-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-}
-
-.hero-section {
-  padding: 120px 20px;
-  text-align: center;
-}
-
-h1 {
-  font-size: 56px;
-  line-height: 1.07143;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  margin-bottom: 8px;
-}
-
-h2 {
-  font-size: 28px;
-  line-height: 1.10722;
-  font-weight: 400;
-  letter-spacing: .004em;
-  color: var(--apple-gray);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: var(--apple-white);
-    background-color: var(--apple-dark);
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply bg-apple-white text-apple-dark antialiased;
   }
-  
-  .nav-bar {
-    background: rgba(29, 29, 31, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  body {
+    @apply leading-relaxed bg-gradient-to-b from-[#F5F5F7] to-[#E5E5E7];
   }
-  
+}
+
+@layer components {
+  .apple-button {
+    @apply bg-apple-blue/95 text-white px-[18px] py-2 rounded-full text-[17px] font-normal 
+           cursor-pointer transition-all duration-200 ease-in-out hover:bg-apple-hover-blue
+           shadow-apple-button hover:shadow-apple-hover active:scale-[0.98]
+           tracking-[-0.01em] backdrop-blur-sm;
+  }
+
+  .apple-button-secondary {
+    @apply bg-white text-apple-dark px-[18px] py-2 rounded-full text-[17px] 
+           font-normal cursor-pointer transition-all duration-200 ease-in-out 
+           hover:bg-white shadow-apple-button hover:shadow-apple-hover
+           active:scale-[0.98] tracking-[-0.01em]
+           border border-black/[0.1];
+  }
+
   .apple-card {
-    background: #2C2C2E;
+    @apply bg-white rounded-2xl p-8 shadow-apple transition-all duration-300
+           hover:shadow-apple-hover hover:-translate-y-1 
+           border border-black/[0.06]
+           hover:bg-white;
+  }
+
+  .apple-nav {
+    @apply fixed top-0 left-0 right-0 h-12 
+           bg-white/90 backdrop-blur-xl
+           border-b border-black/[0.06]
+           flex items-center justify-between px-6 z-50
+           transition-all duration-300;
+  }
+
+  .glass-icon {
+    @apply bg-gradient-to-br from-apple-blue to-apple-hover-blue
+           shadow-lg;
   }
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+@layer utilities {
+  .backdrop-blur-xl {
+    backdrop-filter: blur(20px);
+  }
+  
+  .backdrop-blur-md {
+    backdrop-filter: blur(12px);
+  }
+  
+  .backdrop-blur-sm {
+    backdrop-filter: blur(8px);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(180deg, #1D1D1F 0%, #424245 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.95;
+  }
 
-/* Animation utilities */
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 0.8s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  .glass-morphism {
+    @apply bg-white backdrop-blur-md border border-black/[0.06] shadow-apple;
+  }
 }
